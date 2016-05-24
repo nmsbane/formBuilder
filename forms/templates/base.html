@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{% block title %}{% endblock title %} - Form Builder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet"
+              href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+        <style>
+            body, html, input, select, textarea
+            {
+                font-size: 1.05em !important
+            }
+        </style>
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">Form builder</a>
+        <div class="navbar-collapse collapse navbar-responsive-collapse">
+          <ul class="nav navbar-nav">
+            {% if request.user.is_authenticated %}
+                <li {% if section == "dashboard" %}class="active"{% endif %}><a href="{% url "dashboard" %}">My dashboard</a></li>
+            {% endif %}
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+              {% if request.user.is_authenticated %}
+                Hello {{ request.user.first_name }}, <a href="{% url "logout" %}">Logout</a>
+            {% else %}
+                <a href="{% url "login" %}">Log-in</a>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          {{ message }}
+        </div>
+        {% endfor %}
+      {% endif %}
+
+      {% block content %}{% endblock content %}
+
+    </div>
+
+    {% block page_js %}{% endblock %}
+
+  </body>
+
+</html>
+ 
