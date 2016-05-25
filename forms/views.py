@@ -15,6 +15,9 @@ def custom_login(request):
 def dashboard(request):
     return render(request, 'account/dashboard.html')
 
+@login_required
+def newform(request):
+    return render(request, 'forms/create_form.html')
 
 def register(request):
     if request.method == 'POST':
@@ -30,6 +33,11 @@ def register(request):
         user_form = UserRegistrationForm()
     return render(request, 'account/register.html', {'form': user_form})
 
+def create_form(request):
+    if request.method == 'POST':
+        print request.body
+    return HttpResponseRedirect(reverse('dashboard'))
+    
         
     
     

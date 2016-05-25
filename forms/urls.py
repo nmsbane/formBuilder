@@ -8,6 +8,8 @@ urlpatterns = [
     url(r'^login/$', views.custom_login, name='login'),
     url(r'^logout/$', 'django.contrib.auth.views.logout', name='logout'),
     url(r'^register/$', views.register, name='register'),
+    url(r'^newform/$', views.newform, name='add_form'),
+    url(r'^createform/$', views.create_form, name='create_form'),
     
 ]
 
