@@ -10,8 +10,7 @@ app.controller('FormBuilderCtrl',function FormBuilderCtrl($scope, $http, $locati
 	$scope.fields = [ {
 		type : 'text',
 		name : 'Name',
-		placeholder : 'Please enter your name',
-		order : 1
+		placeholder : 'Please enter your name'
 	} ];
 	$scope.editing = false;
 	$scope.tokenize = function(slug1, slug2) {
@@ -36,7 +35,6 @@ app.controller('FormBuilderCtrl',function FormBuilderCtrl($scope, $http, $locati
 			$scope.fields.push($scope.newField);
 		}
 		$scope.newField = {
-			order : 0
 		};
 	};
 	$scope.editField = function(field) {
@@ -51,7 +49,6 @@ app.controller('FormBuilderCtrl',function FormBuilderCtrl($scope, $http, $locati
 			$scope.newField.options = [];
 		}
 		$scope.newField.options.push({
-			order : 0
 		});
 	};
 	$scope.typeSwitch = function(type) {
