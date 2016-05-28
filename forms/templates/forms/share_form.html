@@ -103,8 +103,8 @@
 		<!--		</div>-->
 		<!--	</div>-->
 		<!--</div>-->
-	
-		<div class="col-md-6" ng-controller="FormDisplayCtrl" >
+		<form name="userForm" ng-submit="submitForm(userForm.$valid)" ng-controller="FormDisplayCtrl">
+		<div class="col-md-6" >
 			<div class="panel panel-primary animated fadeInRight" >
 				<div class="panel-heading">
 					<h3 class="panel-title">Fill the form</h3>
@@ -118,32 +118,42 @@
 							ng-class="field.required && 'required'">
 							<div class="form-group">
 								<ng-switch on="field.type">
+									<input class="form-control animated fadeInRight" ng-switch-when='email'
+										type="{{field.type}}"
+										ng-model="field.value"
+										ng-bind-attr="{required:'{{field.required}}'}" 
+										value="{{field.value}}" placeholder="{{field.placeholder}}" 
+										ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/"
+										ng-required="true">
 									<input class="form-control animated fadeInRight" ng-switch-default
 										type="{{field.type}}"
 										ng-model="field.value"
 										ng-bind-attr="{required:'{{field.required}}'}"  ng-disabled="field.name == 'Name'"
-										value="{{field.value}}" placeholder="{{field.placeholder}}" >
+										value="{{field.value}}" placeholder="{{field.placeholder}}" 
+										ng-required="true">
 									<input ng-switch-when="checkbox" type="checkbox" class="animated fadeInRight"
 										ng-model="field.value" value="{{field.value}}" id="field"
-										placeholder="{{field.instructions}}" disabled> 
+										placeholder="{{field.instructions}}"
+										ng-required="true"> 
 									<textarea class="form-control animated fadeInRight"
 										ng-switch-when="textarea" ng-model="field.value" 
-										placeholder="{{field.instructions}}">{{field.value}}
+										placeholder="{{field.instructions}}"
+										ng-required="true">{{field.value}}
 									</textarea> 
 									<select class="form-control animated fadeInRight" 
-										ng-switch-when="select" ng-model="field.value">
+										ng-switch-when="select" ng-model="field.value" ng-required="true">
 										<option ng-repeat="option in field.options"
 											value="{{option.value}}">{{option.name}}
 										</option>
 									</select> 
-									<fieldset ng-switch-when="radio">
+									<fieldset ng-switch-when="radio" ng-required="true">
 										<label ng-repeat="option in field.options"> 
 											<input class="animated fadeInRight"
 												type="radio" ng-model="field.value" value="{{option.value}}" >
 											{{option.name}}
 										</label>
 									</fieldset>
-									<fieldset ng-switch-when="checkboxes">
+									<fieldset ng-switch-when="checkboxes" ng-required="true">
 										<label ng-repeat="option in field.options"> 
 											<input class="animated fadeInRight"
 												type="checkbox" ng-model="field.value[tokenize(option.name)]" 
@@ -159,11 +169,17 @@
 				
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<button class="btn btn-primary">Submit Form</button>		
+			</div>
+		</div>
+		
+		</form>
 	</div>
-	<div class="row" ng-controller="FormDisplayCtrl">
+	<div class="row">
 		<div class="col-md-12">
-		    <button class="btn btn-primary" ng-click="submitForm()">Submit Form</button>
-		    {{ somevalue }}
+		    
 			<div class="panel panel-warning animated fadeInUp">
 				<div class="panel-heading">
 					<h3 class="panel-title">JSON Data</h3>

@@ -108,8 +108,10 @@ app.controller('FormDisplayCtrl', ['$scope', '$http', '$location', '$window', fu
 	$scope.$watch('fields', function(newvalue) {
 	}, true);
 	
-	$scope.submitForm = function(){
-		console.log('submit form');
+	$scope.submitForm = function(isValid){
+		console.log('inside the submit form');
+		if(isValid) {
+			console.log('submit form');
 	    $http({
             method: 'POST',
             url: '/accounts/shareform/'+$scope.id + '/',
@@ -121,8 +123,11 @@ app.controller('FormDisplayCtrl', ['$scope', '$http', '$location', '$window', fu
               $window.location.href = '/accounts/thanks';
             //$location.path('^/accounts');
           });
+
+		} else {
+			console.log('not valid');
+		}
 	}
-	$scope.somevalue = 'abc';
 	
 }]);
 
