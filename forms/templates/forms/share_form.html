@@ -104,7 +104,7 @@
 		<!--	</div>-->
 		<!--</div>-->
 		<form name="userForm" ng-submit="submitForm(userForm.$valid)" ng-controller="FormDisplayCtrl">
-		<div class="col-md-6" >
+		<div class="col-md-12" >
 			<div class="panel panel-primary animated fadeInRight" >
 				<div class="panel-heading">
 					<h3 class="panel-title">Fill the form</h3>
@@ -146,10 +146,10 @@
 											value="{{option.value}}">{{option.name}}
 										</option>
 									</select> 
-									<fieldset ng-switch-when="radio" ng-required="true">
+									<fieldset ng-switch-when="radio">
 										<label ng-repeat="option in field.options"> 
 											<input class="animated fadeInRight"
-												type="radio" ng-model="field.value" value="{{option.value}}" >
+												type="radio" ng-model="field.value" value="{{option.value}}" ng-required="true">
 											{{option.name}}
 										</label>
 									</fieldset>
@@ -171,7 +171,7 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-				<button class="btn btn-primary">Submit Form</button>		
+				<button class="btn btn-primary" ng-disabled="!userForm.$valid">Submit Form</button>		
 			</div>
 		</div>
 		
