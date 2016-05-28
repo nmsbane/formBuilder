@@ -24,15 +24,20 @@ def newform(request):
     return render(request, 'forms/create_form.html')
     
 def share_form(request, form_id):
-    form_object = None
     if request.method == 'GET':
         form_object = get_object_or_404(Form, pk=form_id)
         form_contents = json.loads(form_object.contents)
         return render(request, 'forms/share_form.html', {'fields': form_object.contents, 'id': form_id})
     elif request.method == 'POST':
+        form_object = get_object_or_404(Form, pk=form_id)
         data = json.loads(request.body)
+        for field in data:
+            if field:
+                name = field['name']
+                value = field['value']
+                fr = FormResults(form=form_object, name=name, value=value)
+                fr.save()
         print data
-        # 
         return render(request, 'forms/thanks.html')
             
 

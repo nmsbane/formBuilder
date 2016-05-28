@@ -118,7 +118,7 @@ app.controller('FormDisplayCtrl', ['$scope', '$http', '$location', '$window', fu
                 'Content-Type': 'application/json; charset=utf-8'
             }
           }).success(function (data) {
-              $window.location.href = '/thanks';
+              $window.location.href = '/accounts/thanks';
             //$location.path('^/accounts');
           });
 	}
