@@ -5,5 +5,14 @@
 {% block content %}
     <h1>Dashboard</h1>
     <p>Welcome to your dashboard.</p>
-    <a href="{% url "add_form" %}">Click here to create new form</a>
+    <div class="list-group">
+    {% if all_forms|length > 0 %}
+        {% for form in all_forms %}
+            <a href="{% url 'share_form' form.id %}" class="list-group-item">{{ form.name }}</a>
+        {% endfor %}
+    {% endif %}
+    </div>
+    <div>
+        <a href="{% url "add_form" %}">Click here to create new form</a>
+    </div>
 {% endblock %}

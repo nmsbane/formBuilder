@@ -99,3 +99,30 @@ app.directive('ngDynamicForm', function () {
         templateUrl : '/static/forms/javascript/dynamicForms.html'
     } 
 });
+
+app.controller('FormDisplayCtrl', ['$scope', '$http', '$location', '$window', function ($scope, $http, $location, $window)
+{
+	
+	console.log($scope.fields);
+	
+	$scope.$watch('fields', function(newvalue) {
+	}, true);
+	
+	$scope.submitForm = function(){
+		console.log('submit form');
+	    $http({
+            method: 'POST',
+            url: '/accounts/shareform/'+$scope.id + '/',
+            data: $scope.fields,
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            }
+          }).success(function (data) {
+              $window.location.href = '/thanks';
+            //$location.path('^/accounts');
+          });
+	}
+	$scope.somevalue = 'abc';
+	
+}]);
+

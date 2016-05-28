@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 class Form(models.Model):
     name = models.CharField(max_length=30, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    contents = models.TextField(null=True)
     
     def save(self, *args, **kwargs):
         super(Form, self).save(*args, **kwargs) # Call the "real" save() method.
@@ -16,6 +17,12 @@ class Form(models.Model):
     def __str__(self):
         return "%s" % (self.name)
 
+
+class FormResults(models.Model):
+    form = models.ForeignKey(Form, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    value = models.CharField(max_length=255)
+    
 
 class FormValues(models.Model):
     form_id = models.ForeignKey(Form, on_delete=models.CASCADE)

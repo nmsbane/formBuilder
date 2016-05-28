@@ -1,4 +1,6 @@
 from django.conf.urls import include, url
+from django.views.generic import TemplateView
+
 from . import views
 
 urlpatterns = [
@@ -10,6 +12,8 @@ urlpatterns = [
     url(r'^register/$', views.register, name='register'),
     url(r'^newform/$', views.newform, name='add_form'),
     url(r'^createform/$', views.create_form, name='create_form'),
+    url(r'^shareform/(?P<form_id>[0-9]+)/$', views.share_form, name='share_form'),
+    url(r'^thanks/$',TemplateView.as_view(template_name='forms/thanks.html') ),
     
 ]
 
