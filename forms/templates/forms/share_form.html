@@ -131,10 +131,10 @@
 										ng-bind-attr="{required:'{{field.required}}'}"  ng-disabled="field.name == 'Name'"
 										value="{{field.value}}" placeholder="{{field.placeholder}}" 
 										ng-required="true">
-									<input ng-switch-when="checkbox" type="checkbox" class="animated fadeInRight"
-										ng-model="field.value" value="{{field.value}}" id="field"
-										placeholder="{{field.instructions}}"
-										ng-required="true"> 
+									<!--<input ng-switch-when="checkbox" type="checkbox" class="animated fadeInRight"-->
+									<!--	ng-model="field.value" value="{{field.value}}" id="field"-->
+									<!--	placeholder="{{field.instructions}}"-->
+									<!--	ng-required="true"> -->
 									<textarea class="form-control animated fadeInRight"
 										ng-switch-when="textarea" ng-model="field.value" 
 										placeholder="{{field.instructions}}"
@@ -143,23 +143,25 @@
 									<select class="form-control animated fadeInRight" 
 										ng-switch-when="select" ng-model="field.value" ng-required="true">
 										<option ng-repeat="option in field.options"
-											value="{{option.value}}">{{option.name}}
+											value="{{option.name}}">{{option.name}}
 										</option>
 									</select> 
 									<fieldset ng-switch-when="radio">
 										<label ng-repeat="option in field.options"> 
 											<input class="animated fadeInRight"
-												type="radio" ng-model="field.value" value="{{option.value}}" ng-required="true">
+												type="radio" ng-model="field.value" value="{{option.name}}" ng-required="true">
 											{{option.name}}
 										</label>
 									</fieldset>
-									<fieldset ng-switch-when="checkboxes" ng-required="true">
+									<fieldset ng-switch-when="checkboxes" ng-required="true" ng-init="field.value = []">
 										<label ng-repeat="option in field.options"> 
 											<input class="animated fadeInRight"
-												type="checkbox" ng-model="field.value[tokenize(option.name)]" 
+												ng-true-value="{{option.name}}"
+												ng-false-value=""
+												type="checkbox" ng-model="field.value[$index]" 
 												value="{{option.value}}"> {{option.name}}
 										</label>
-									</fieldset>
+									</fieldset>								
 								</ng-switch>
 							</div>
 						</div>

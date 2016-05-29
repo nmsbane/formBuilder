@@ -100,33 +100,43 @@ app.directive('ngDynamicForm', function () {
     } 
 });
 
-// app.controller('FormDisplayCtrl', ['$scope', '$http', '$location', '$window', function ($scope, $http, $location, $window)
-// {
+app.controller('FormDisplayCtrl', ['$scope', '$http', '$location', '$window', function ($scope, $http, $location, $window)
+{
 	
-// 	console.log($scope.fields);
+	console.log($scope.fields);
 	
-// 	$scope.$watch('fields', function(newvalue) {
-// 	}, true);
+	$scope.$watch('fields', function(newvalue) {
+	}, true);
 	
-// 	$scope.submitForm = function(isValid){
-// 		console.log('inside the submit form');
-// 		if(isValid) {
-// 			console.log('submit form');
-// 	    $http({
-//             method: 'POST',
-//             url: '/accounts/shareform/'+$scope.id + '/',
-//             data: $scope.fields,
-//             headers: {
-//                 'Content-Type': 'application/json; charset=utf-8'
-//             }
-//           }).success(function (data) {
-//               $window.location.href = '/accounts/thanks';
-//             //$location.path('^/accounts');
-//           });
+	$scope.tokenize = function(slug1, slug2) {
+		var result = slug1;
+		result = result.replace(/[^-a-zA-Z0-9,&\s]+/ig, '');
+		result = result.replace(/-/gi, "_");
+		result = result.replace(/\s/gi, "-");
+		if (slug2) {
+			result += '-' + $scope.token(slug2);
+		}
+		return {value:result}	;
+	};
+	$scope.submitForm = function(isValid){
+		console.log('inside the submit form');
+		if(isValid) {
+			console.log('submit form');
+	    $http({
+            method: 'POST',
+            url: '/accounts/shareform/'+$scope.id + '/',
+            data: $scope.fields,
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            }
+          }).success(function (data) {
+              $window.location.href = '/accounts/thanks';
+            //$location.path('^/accounts');
+          });
 
-// 		} else {
-// 			console.log('not valid');
-// 		}
-// 	}
+		} else {
+			console.log('not valid');
+		}
+	}
 	
-// }]);
+}]);
