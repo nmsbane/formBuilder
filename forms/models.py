@@ -4,8 +4,13 @@ from django.db import models
 
 from django.contrib.auth.models import User
 
+class InputType(models.Model):
+    type = models.CharField(max_length=255)
+    
+    def __str__(self):
+        return "%s" % self.type
 
-# Create your models here.
+
 class Form(models.Model):
     name = models.CharField(max_length=30, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -26,6 +31,7 @@ class FormResults(models.Model):
 
 class FormValues(models.Model):
     form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
+    name = models.CharField(max_length=50, null=True)
     value = models.CharField(max_length=50)
     
     def save(self, *args, **kwargs):
@@ -38,12 +44,13 @@ class FormValues(models.Model):
 class FormContents(models.Model):
     form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
     input_type = models.CharField(max_length=50)
-    values = models.OneToOneField(FormValues, on_delete=models.CASCADE)
+    label = models.CharField(max_length=255, null=True)
+    values = models.OneToOneField(FormValues, on_delete=models.CASCADE, null=True)
     
     def save(self, *args, **kwargs):
         super(FormContents, self).save(*args, **kwargs) # Call the "real" save() method.
     
     def __str__(self):
-        return "%s, value='%s'" % (self.input_type, self.values.value)
+        return "%s" % (self.input_type)
 
     
