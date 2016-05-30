@@ -14,12 +14,17 @@ Including another URLconf
     2. Import the include() function: from django.conf.urls import url, include
     3. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
-from django.conf.urls import include, url
+from django.conf.urls import include, url patterns
 from django.contrib import admin
 from django.views.generic.base import RedirectView
+from .settings import STATIC_ROOT
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('forms.urls')),
     url(r'^$', RedirectView.as_view(url='/accounts')),
 ]
+
+urlpatterns += patterns('',
+ (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': STATIC_ROOT}),
+ )
