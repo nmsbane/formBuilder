@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, UserRegistrationForm
 from django.contrib.auth.views import login
 from .models import Form, FormValues, FormContents, FormResults, InputType
+from django.views.decorators.csrf import csrf_exempt
 
 def custom_login(request):
     if request.user.is_authenticated():
@@ -58,6 +59,7 @@ def fill_list(form_contents):
 # {"type":"select","name":"Select box","options":[{"name":"Option 1","value":"1"},{"name":"Option 2","value":"2"}],"value":"Option 1"},
 # {"type":"radio","name":"Radio button","options":[{"name":"option 1","value":"1"},{"name":"Option 2","value":"2"}],"value":"option 1"},
 # {"type":"checkboxes","name":"Check box 1","options":[{"name":"Option 1","value":"1"},{"name":"Option 2","value":"2"}],"value":["","Option 2"]}]
+@csrf_exempt
 def share_form(request, form_id):
     if request.method == 'GET':
         form_object = get_object_or_404(Form, pk=form_id)
@@ -65,7 +67,22 @@ def share_form(request, form_id):
         output_list = fill_list(form_contents)
         return render(request, 'forms/share_form.html', {'fields': json.dumps(output_list), 'id': form_id})
         
-    pass
+    elif request.method == 'POST':
+        form_object = get_object_or_404(Form, pk=form_id)
+        data = json.loads(request.body)
+        for field in data:
+            if field:
+                name = field['name']
+                if field['type'] == 'checkboxes':
+                    value = ''
+                    for selected in field['value']:
+                        if selected:
+                            value = value + selected + ', '
+                else:
+                    value = field['value']
+                fr = FormResults(form=form_object, name=name, value=value)
+                fr.save()
+        return render(request, 'forms/thanks.html')
     
 # def share_form(request, form_id):
 #     if request.method == 'GET':

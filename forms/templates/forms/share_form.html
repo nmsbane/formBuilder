@@ -120,10 +120,10 @@
 								<ng-switch on="field.type">
 									<input class="form-control animated fadeInRight" ng-switch-when='email'
 										type="{{field.type}}"
+										validate-email
 										ng-model="field.value"
 										ng-bind-attr="{required:'{{field.required}}'}" 
 										value="{{field.value}}" placeholder="{{field.placeholder}}" 
-										ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/"
 										ng-required="true">
 									<input class="form-control animated fadeInRight" ng-switch-default
 										type="{{field.type}}"
@@ -146,10 +146,10 @@
 											value="{{option.name}}">{{option.name}}
 										</option>
 									</select> 
-									<fieldset ng-switch-when="radio">
+									<fieldset ng-switch-when="radio" ng-required="true">
 										<label ng-repeat="option in field.options"> 
 											<input class="animated fadeInRight"
-												type="radio" ng-model="field.value" value="{{option.name}}" ng-required="true">
+												type="radio" ng-model="field.value" value="{{option.name}}" >
 											{{option.name}}
 										</label>
 									</fieldset>
