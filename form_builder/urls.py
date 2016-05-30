@@ -17,7 +17,7 @@ Including another URLconf
 from django.conf.urls import include, url, patterns
 from django.contrib import admin
 from django.views.generic.base import RedirectView
-from .settings import STATIC_ROOT
+# from .settings import STATIC_ROOT
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -25,6 +25,6 @@ urlpatterns = [
     url(r'^$', RedirectView.as_view(url='/accounts')),
 ]
 
-urlpatterns += patterns('',
- (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': STATIC_ROOT}),
- )
+# urlpatterns += patterns('',
+#  (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': STATIC_ROOT}),
+#  )
