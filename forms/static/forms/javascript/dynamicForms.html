@@ -18,34 +18,20 @@
 						<!--	</label>-->
 						<!--</div>-->
 						
-						<!--<div class="form-group">-->
-						<!--	<label for="newField-order">Order Weight:</label> <input-->
-						<!--		class="form-control" type="number" id="newField-order" ng-model="newField.order"-->
-						<!--		value="0" ng-required placeholder="0">-->
-						<!--</div>-->
 						<div class="form-group">
 							<label for="newField-type">Field Type:</label> <select
 								class="form-control" id="newField-type" ng-model="newField.type" ng-required>
 								<option value="text" selected>Text</option>
 								<option value="radio">Radio Buttons</option>
 								<option value="select">Drop Menu (Select)</option>
-								<!--<option value="multiple">Multi-Select</option>-->
-								<!--<option value="checkbox">Toggle (Checkbox)</option>-->
 								<option value="checkboxes">Checkboxes</option>
 								<option value="textarea">Paragraph(s)</option>
-								<!--<option value="number">Number</option>-->
-								<!--<option value="url">Url</option>-->
-								<!--<option value="phone">Phone</option>-->
 								<option value="email">Email</option>
-								<!--<option value="header">Heading</option>-->
 							</select>
 						</div>
 						<ng-switch on="typeSwitch(newField.type)">
 						<div ng-switch-default class="form-group">
-							<!--<label for="newField-placeholder">Instructions:</label> <input-->
-							<!--	class="form-control" type="text" id="newField-placeholder"-->
-							<!--	ng-model="newField.placeholder">-->
-						</div>
+													</div>
 						<fieldset ng-switch-when="multiple">
 							<legend>
 								<a class="btn btn-primary btn-xs" ng-click="addOption()">Add Option</a>
@@ -61,8 +47,6 @@
 												ng-required>
 										Value: <input class="form-control" type="text"
 												ng-model="option.value">
-										<!--Order: <input class="form-control" type="number"-->
-										<!--	ng-model="option.order">-->
 									</div>
 								</div>
 							</div>
@@ -119,12 +103,6 @@
 											value="{{option.value}}">{{option.name}}
 										</option>
 									</select> 
-									<!--<select class="form-control animated fadeInRight" -->
-									<!--	ng-switch-when="multiple" ng-model="field.value" multiple>-->
-									<!--	<option ng-repeat="option in field.options"-->
-									<!--		value="{{option.value}}">{{option.name}}-->
-									<!--	</option>-->
-									<!--</select>-->
 									<fieldset ng-switch-when="radio">
 										<label ng-repeat="option in field.options"> 
 											<input class="animated fadeInRight"

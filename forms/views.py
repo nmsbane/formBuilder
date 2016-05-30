@@ -84,23 +84,7 @@ def share_form(request, form_id):
                 fr.save()
         return render(request, 'forms/thanks.html')
     
-# def share_form(request, form_id):
-#     if request.method == 'GET':
-#         form_object = get_object_or_404(Form, pk=form_id)
-#         form_contents = json.loads(form_object.contents)
-#         return render(request, 'forms/share_form.html', {'fields': form_object.contents, 'id': form_id})
-#     elif request.method == 'POST':
-#         form_object = get_object_or_404(Form, pk=form_id)
-#         data = json.loads(request.body)
-#         for field in data:
-#             if field:
-#                 name = field['name']
-#                 value = field['value']
-#                 fr = FormResults(form=form_object, name=name, value=value)
-#                 fr.save()
-#         print data
-#         return render(request, 'forms/thanks.html')
-            
+
 
 def register(request):
     if request.method == 'POST':
@@ -123,16 +107,6 @@ def register(request):
 #    {"name":"Input field","type":"text"}
 # ]
 
-# def create_form(request):
-#     if request.method == 'POST':
-#         data = json.loads(request.body)
-#         form = None
-#         for field in data:
-#             if field['name'] == 'Name':
-#                 form = Form(name=field.get('value', str(request.user.id) +'form' ), 
-#                             user=request.user, contents=request.body)
-#                 form.save()
-#                 return HttpResponseRedirect(reverse('dashboard'))
 def create_form(request):
     import json
     if request.method == 'POST':
