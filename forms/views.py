@@ -31,28 +31,38 @@ def fill_list(form_contents):
     length = len(form_contents)
     start = 0
     while start < length:
-    	form = form_contents[start]
-    	if form.label is not None:
-    		new_field = {}
-    		new_field['name'] = form.label
-    		new_field['type'] = form.input_type
-    		if new_field['type'] == 'checkboxes' or new_field['type'] == 'radio' or new_field['type'] == 'select':
-    			new_field['options'] = []
-    			start = start + 1
-    			f1 = form_contents[start]
-    			while start < length and f1.label is None:
-    				fv = f1.values
-    				option_field = {}
-    				option_field['name'] = fv.name
-    				option_field['value'] = fv.value
-    				new_field['options'].append(option_field)
-    				start = start + 1
-    				if start < length:
-    					f1 = form_contents[start]
-    			start = start - 1
-    		input_list.append(new_field)
-    	start = start + 1
+        form = form_contents[start]
+        if form.label is not None:
+            new_field = {}
+            new_field['name'] = form.label
+            new_field['type'] = form.input_type
+    	    if new_field['type'] == 'checkboxes' or new_field['type'] == 'radio' or new_field['type'] == 'select':
+                # import ipdb
+                # ipdb.set_trace()
+                new_field['options'] = []
+                for form_value in form.formvalues_set.all():
+                    option_field = {}
+                    option_field['name'] = form_value.name
+                    option_field['value'] = form_value.value
+                    new_field['options'].append(option_field)
+            input_list.append(new_field)
+            start = start + 1
     return input_list
+                
+            #     start = start + 1
+            #     f1 = form_contents[start]
+            #     while start < length and f1.label is None and f1.input_type == new_field['type']:
+            #         fv = f1.values
+            #         option_field = {}
+            #         option_field['name'] = fv.name
+            #         option_field['value'] = fv.value
+            #         new_field['options'].append(option_field)
+            #         start = start + 1
+            #         if start < length:
+    				    # f1 = form_contents[start]
+            #         start = start - 1
+    # 		input_list.append(new_field)
+    # 	start = start + 1
 
 #[{"type":"text","name":"First Field","value":"first field"},
 # {"type":"textarea","name":"Text box1","value":"text box goes here"},
@@ -126,10 +136,13 @@ def create_form(request):
                     fc = FormContents(form_id=form, input_type=field['type'], label=field['name'])
                     fc.save()
                     for key in field['options']:
-                        fm = FormValues(form_id=form, name=key['name'], value=key['value'])
+                        fm = FormValues(form_id=form, name=key['name'], value=key['value'], )
                         fm.save()
-                        fc = FormContents(form_id=form, input_type=field['type'], values=fm)
-                        fc.save()
+                        # import ipdb
+                        # ipdb.set_trace()
+                        fc.formvalues_set.add(fm)
+                        # fc = FormContents(form_id=form, input_type=field['type'], values=fm)
+                        # fc.save()
         return HttpResponseRedirect(reverse('dashboard'))
     
         

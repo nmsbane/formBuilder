@@ -27,12 +27,27 @@ class FormResults(models.Model):
     form = models.ForeignKey(Form, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     value = models.CharField(max_length=255)
+
+
+    
+class FormContents(models.Model):
+    form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
+    input_type = models.CharField(max_length=50)
+    label = models.CharField(max_length=255, null=True)
+    # values = models.ForeignKey(FormValues, on_delete=models.CASCADE, null=True)
+    
+    def save(self, *args, **kwargs):
+        super(FormContents, self).save(*args, **kwargs) # Call the "real" save() method.
+    
+    def __str__(self):
+        return "%s" % (self.input_type)
     
 
 class FormValues(models.Model):
     form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
     name = models.CharField(max_length=50, null=True)
     value = models.CharField(max_length=50)
+    list_of_values = models.ForeignKey(FormContents, on_delete=models.CASCADE, null=True)
     
     def save(self, *args, **kwargs):
         super(FormValues, self).save(*args, **kwargs) # Call the "real" save() method
@@ -40,17 +55,5 @@ class FormValues(models.Model):
     def __str__(self):
         return "%s" % (self.value)
     
-    
-class FormContents(models.Model):
-    form_id = models.ForeignKey(Form, on_delete=models.CASCADE)
-    input_type = models.CharField(max_length=50)
-    label = models.CharField(max_length=255, null=True)
-    values = models.OneToOneField(FormValues, on_delete=models.CASCADE, null=True)
-    
-    def save(self, *args, **kwargs):
-        super(FormContents, self).save(*args, **kwargs) # Call the "real" save() method.
-    
-    def __str__(self):
-        return "%s" % (self.input_type)
 
     
