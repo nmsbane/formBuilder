@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^createform/$', views.create_form, name='create_form'),
     url(r'^shareform/(?P<form_id>[0-9]+)/$', views.share_form, name='share_form'),
     url(r'^thanks/$',TemplateView.as_view(template_name='forms/thanks.html') ),
+    url(r'^formresults/(?P<form_id>[0-9]+)$', views.form_values, name='results'),
     
 ]
 

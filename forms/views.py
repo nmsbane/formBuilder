@@ -94,6 +94,33 @@ def share_form(request, form_id):
                 fr.save()
         return render(request, 'forms/thanks.html')
     
+    
+def form_values(request, form_id):
+    form_object = get_object_or_404(Form, pk=form_id)
+    form_labels = FormContents.objects.filter(form_id=form_object)
+    table_headers = []
+    for fc in form_labels:
+        table_headers.append(str(fc.label))
+    form_results = FormResults.objects.filter(form_id=form_object)
+    table_values = []
+    # for label in table_headers:
+    #     result_obj = {}
+    #     result_obj['label'] = label
+    #     result_obj['values'] = []
+    #     for fr in form_results:
+    #         if fr.name == label:
+    #             result_obj['values'].append(fr.value)
+    #     table_values.append(result_obj)
+            
+    for fr in form_results:
+        result_object = {}
+        result_object['name'] = fr.name
+        result_object['value'] = fr.value
+        table_values.append(result_object)
+    return render(request, 'forms/results.html', {'table_headers': table_headers, 
+                                                  'table_values': table_values})
+    
+    
 
 
 def register(request):

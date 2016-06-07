@@ -8,7 +8,8 @@
     <div class="list-group">
     {% if all_forms|length > 0 %}
         {% for form in all_forms %}
-            <a href="{% url 'share_form' form.id %}" class="list-group-item">{{ form.name }}</a>
+            <a href="{% url 'share_form' form.id %}" class="list-group-item info">Share {{ form.name }}</a>
+            <a href="{% url 'results' form.id %}" class="list-group-item primary">Results {{ form.name }}</a>
         {% endfor %}
     {% endif %}
     </div>
