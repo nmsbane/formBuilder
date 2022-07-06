@@ -9,7 +9,7 @@ django-bootstrap==0.2.4
 django-bootstrap-tags==1.2.0
 django-forms-bootstrap==3.0.1
 gunicorn==19.6.0
-html5lib==0.999
+html5lib==0.999999999
 httplib2==0.8
 ipython==1.2.1
 keyring==3.5
